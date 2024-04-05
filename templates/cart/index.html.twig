@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-7"> {# Ajustement de la taille de la colonne pour le panier #}
+            <h1>Mon panier</h1> 
+            {% for product in cart %}
+                <div class="col-md-12 mb-3">
+                    <div class="row border p-3">
+                        <div class="col-md-2">
+                            <img src="/uploads/{{ product.object.illustration }}" class="img-fluid" alt="{{ product.object.name }}">
+                        </div>
+                        <div class="col-md-4">
+                            <strong>{{ product.object.name }}</strong>
+                            <span class="d-block">Prix unitaire: {{ product.object.pricewt|price }}</span>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <a href="{{ path('app_cart_decrease', { id: product.object.id }) }}" class="btn btn-sm btn-outline-secondary">-</a>
+                            {{ product.qty }}
+                            <a href="{{ path('app_cart_add', { id: product.object.id }) }}" class="btn btn-sm btn-outline-secondary">+</a>
+                        </div>
+                        <div class="col-md-2">
+                            <strong>Total: {{ (product.qty * product.object.pricewt)|price }}</strong>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div class="col-md-12 mb-3">
+                <a href="{{ path('app_cart_remove') }}" class="small d-block mt-3">Vider le panier</a>
+            </div>
+        </div>
+
+        <div class="col-md-5"> {# Ajustement de la taille de la colonne pour le total des produits #}
+            <div class="bg-light p-2">
+                <div class="d-flex justify-content-between">
+                    <span class="fw-bold">Total produit</span>
+                    <span>{{ fullCartQuantity }}</span>
+                </div>
+                 <div class="d-flex justify-content-between mt-4">
+                    <span class="fw-bold">Prix total ttc</span>
+                    <span>{{ getTotalWt|price }}</span>
+                </div>
+                    <a href="" class="btn btn-success w-100 mt-3"> Commander </a>
+                <div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
