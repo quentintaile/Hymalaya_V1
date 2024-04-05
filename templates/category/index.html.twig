@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     
+    <div class="container my-5">
+    
+        <h1 style="color: green;">{{ category.name }}</h1> 
+        <p style="font-size: 18px;">Cette catégorie contient {{ category.products|length }} produit(s).</p> 
+    
+
+
+        <div class="row">
+            {% for product in category.products %}
+                <div class="col-md-3 text-center">
+                    <a href="{{ path('app_product', { slug : product.slug }) }}" class="text-decoration-none"> 
+                        <img src="/uploads/{{ product.illustration }}" class="img-fluid">
+                        <span class="d-block fw-bold text-black" style="font-size: 16px;">{{ product.name }}</span> 
+                    </a> 
+                    <span class="d-block" style="color: green;">{{ product.pricewt|price }}</span> 
+                    
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+  
+{% endblock %}
